@@ -35,7 +35,7 @@ int main()
             unsigned int quelee = (instruccion >> 8) & 0b1111;
             unsigned int desplazamiento = (instruccion >> 12) & 0b11111111;
             estado.data_memory[estado.regs[guardar] + desplazamiento] = estado.regs[quelee] & 0b11111111;
-            estado.data_memory[estado.regs[guardar] + desplazamiento + 1] = (estado.regs[quelee] >> 8) & 0b11111111
+            estado.data_memory[estado.regs[guardar] + desplazamiento + 1] = (estado.regs[quelee] >> 8) & 0b11111111;
             break;
         }
         case 4: { //beq

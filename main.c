@@ -23,18 +23,19 @@ int main()
             estado.regs[guardar] = estado.regs[v1] + estado.regs[v2];
             break;
         }
-        case 2:{ //lw
+        case 2:{ //lw (data memory en bytes yo guardo palabras)
             unsigned int guardar = (instruccion >> 4) & 0b1111;
             unsigned int quelee = (instruccion >> 8) & 0b1111;
             unsigned int desplazamiento = (instruccion >> 12) & 0b11111111;
-            estado.regs[guardar] = estado.data_memory[estado.regs[quelee] + desplazamiento];
+            estado.regs[guardar] = estado.data_memory[estado.regs[quelee] + desplazamiento] + ((estado.data_memory[estado.regs[quelee] + desplazamiento + 1]) >> 8);
             break; //el registro es para sacar bits porque sino tengo 8 nomas
         }
         case 3: { // sw
             unsigned int guardar = (instruccion >> 4) & 0b1111;
             unsigned int quelee = (instruccion >> 8) & 0b1111;
             unsigned int desplazamiento = (instruccion >> 12) & 0b11111111;
-            estado.data_memory[estado.regs[guardar] + desplazamiento] = estado.regs[quelee];
+            estado.data_memory[estado.regs[guardar] + desplazamiento] = estado.regs[quelee] & 0b11111111;
+            estado.data_memory[estado.regs[guardar] + desplazamiento + 1] = (estado.regs[quelee] >> 8) & 0b11111111
             break;
         }
         case 4: { //beq
